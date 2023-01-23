@@ -9,4 +9,5 @@ class tanggal_operasi extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $table = 'tanggal_operasi';
 }

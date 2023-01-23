@@ -4,9 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class kategori_operasi extends Model
 {
     use HasFactory;
-    protected $fillable = ['nama'];
+    use Sluggable;
+
+    protected $guarded = ['id'];
+    protected $table = 'kategori_operasi';
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'nama'
+            ] 
+        ];
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

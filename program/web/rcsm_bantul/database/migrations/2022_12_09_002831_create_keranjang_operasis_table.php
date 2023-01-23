@@ -13,7 +13,7 @@ class CreateKeranjangOperasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('keranjang_operasis', function (Blueprint $table) {
+        Schema::create('keranjang_operasi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('operasi_id');
@@ -28,6 +28,6 @@ class CreateKeranjangOperasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('keranjang_operasis');
+        Schema::dropIfExists('keranjang_operasi');
     }
 }
