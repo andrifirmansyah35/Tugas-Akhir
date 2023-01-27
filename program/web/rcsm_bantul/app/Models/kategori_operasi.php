@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Models\skema_operasi;
 
 class kategori_operasi extends Model
 {
@@ -26,5 +28,10 @@ class kategori_operasi extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    // relationship
+    public function skema_operasi(){
+        return $this->hasMany(skema_operasi::class);
     }
 }

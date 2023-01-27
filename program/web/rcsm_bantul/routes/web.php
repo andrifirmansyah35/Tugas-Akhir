@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriLayananController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\KategoriOperasiController;
+use App\Http\Controllers\SkemaOperasiController;
 
 
 Route::get('/login', [LoginController::class,'index']);
@@ -23,3 +24,6 @@ Route::get('/layanan/status2/{layanan:slug}',[LayananController::class,'updateSt
 Route::resource('/layanan', LayananController::class);
 
 Route::resource('/kategori_operasi', KategoriOperasiController::class);
+
+Route::post('/tambah_skema_operasi',[SkemaOperasiController::class,'tambahSkemaOperasi']);
+Route::delete('/skema_operasi_hapus',[SkemaOperasiController::class,'hapusSkemaOperasi']);

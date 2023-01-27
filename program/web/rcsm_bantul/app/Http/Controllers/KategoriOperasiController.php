@@ -46,7 +46,8 @@ class KategoriOperasiController extends Controller
     public function show(kategori_operasi $kategori_operasi)
     {
         return view('kategori_operasi.show',[
-            'title' => 'Skema Kategori'.$kategori_operasi->nama      
+            'title' => 'Skema Operasi : '.$kategori_operasi->nama,
+            'kategori_operasi' => $kategori_operasi      
         ]
     );
     }
@@ -77,7 +78,5 @@ class KategoriOperasiController extends Controller
     public function destroy(kategori_operasi $kategori_operasi)
     {
         return "itur in masih dalam pengerjaan";
-        // $kategori_operasi::destroy($kategori_operasi->id);
-        // return redirect('/kategori_operasi')->with('success','Kategori Operasi berhsil dihapus!');
     }
 }

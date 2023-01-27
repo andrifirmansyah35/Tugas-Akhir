@@ -66,9 +66,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/kategori_operasi">Kategori Operasi</a>
-                <a class="collapse-item" href="">Skema Operasi</a>
-                <a class="collapse-item" href="">Tanggal Operas</a>
-                <a class="collapse-item" href="">Operasi</a>
+                <a class="collapse-item" href="">Rilis Operasi</a>
             </div>
         </div>
     </li>

@@ -75,12 +75,7 @@ class KategoriLayananController extends Controller
         return redirect('/kategori_layanan')->with('success','Kategori layanan berhsil diupdate!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(kategori_layanan $kategori_layanan)
     {
         // return layanan::all();  //  YES
