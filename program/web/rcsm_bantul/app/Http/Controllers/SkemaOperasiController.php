@@ -27,24 +27,10 @@ class SkemaOperasiController extends Controller
             $array_waktu = str_split($string_waktu);
             $waktu_jam = intval($array_waktu[0].$array_waktu[1]);
             $waktu_menit = intval($array_waktu[3].$array_waktu[4]);
-
             // konfersi ke menit waktu
             return ($waktu_jam * 60) + $waktu_menit;
         }
         
-        // // algo menambahkan jam dan menit
-        // $array_waktu_mulai = str_split($request->waktu_mulai);
-        // $waktu_mulai_jam = intval($array_waktu_mulai[0].$array_waktu_mulai[1]);
-        // $waktu_mulai_menit = intval($array_waktu_mulai[3].$array_waktu_mulai[4]);
-        
-        // $array_waktu_selesai = str_split($request->waktu_selesai);
-        // $waktu_selesai_jam = intval($array_waktu_selesai[0].$array_waktu_selesai[1]);
-        // $waktu_selesai_menit = intval($array_waktu_selesai[3].$array_waktu_selesai[4]);
-    
-        
-        // // konfersi menit waktu operasi
-        // $total_menit_waktu_mulai = ($waktu_mulai_jam * 60) + $waktu_mulai_menit;
-        // $total_menit_waktu_selesai = ($waktu_selesai_jam * 60) + $waktu_selesai_menit;
 
         $total_menit_waktu_mulai = getTotalMinutes($request->waktu_mulai);
         $total_menit_waktu_selesai = getTotalMinutes($request->waktu_selesai); 
@@ -61,7 +47,7 @@ class SkemaOperasiController extends Controller
             return redirect('/kategori_operasi/'.$request->kategori_operasi_slug)->with('fail','data waktu mulai tidak boleh melebihi waktu selesai');
         }
             
-        // cek database skema operasi 
+        // cek database skema operasi : apakah data pada skema kosong 
         if(skema_operasi::where('kategori_operasi_id',$request->kategori_operasi_id)->get()->isEmpty()){
             skema_operasi::create($validatedData);
             return redirect('/kategori_operasi/'.$request->kategori_operasi_slug)->with('success','Sukses menambahklan data skema operasi');
@@ -73,11 +59,18 @@ class SkemaOperasiController extends Controller
         $data_terakhir_waktu_mulai = $data_terakhir_skema_operasi['waktu_mulai'];
         $data_terakhir_waktu_selesai = $data_terakhir_skema_operasi['waktu_selesai'];
 
-        // membandingkan jumlahkan data waktu baru dengan data terakhir 
-        
+        // konfersi ke menit 
+        $total_data_terakhir_menit_waktu_mulai = getTotalMinutes($data_terakhir_waktu_mulai);
+        $total_data_terakhir_menit_waktu_selesai = getTotalMinutes($data_terakhir_waktu_selesai); 
 
-        // cek apakah data waktu terakhir lebih kecil
-        // if($data_terakhir_skema_operasi)
+        // membandingkan data baru dengan data terakhir
+        if($total_menit_waktu_mulai < $total_data_terakhir_menit_waktu_selesai){
+            return redirect('/kategori_operasi/'.$request->kategori_operasi_slug)->with('fail','Waktu baru lebih lama dari pada data waktu terakhir');
+        }else{
+            skema_operasi::create($validatedData);
+            return redirect('/kategori_operasi/'.$request->kategori_operasi_slug)->with('success','Sukses menambahklan data skema operasi');   
+        }
+            
 
         return [
             [
@@ -104,9 +97,13 @@ class SkemaOperasiController extends Controller
                 'data terakhir skema operasi array' => $data_terakhir_skema_operasi
             ],
             [
-                'data terakhir skema operasi waktu mulai' => $data_terakhir_waktu_mulai,
-                'data terakhir skema operasi waktu selesai' => $data_terakhir_waktu_selesai,
-            ]
+                'data terakhir waktu mulai' => $data_terakhir_waktu_mulai,
+                'data terakhir waktu selesai' => $data_terakhir_waktu_selesai,
+            ],
+            [
+                'total data terakhir menit waktu mulai' => $total_data_terakhir_menit_waktu_mulai,
+                'total data terakhir menit waktu selesai' => $total_data_terakhir_menit_waktu_mulai,
+            ],
         ];
     }
 

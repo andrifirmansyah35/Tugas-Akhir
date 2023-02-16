@@ -6,7 +6,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Admin RCSM Bantul</div>
     </a>
 
     <!-- Divider -->
@@ -28,15 +28,19 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
+
+
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fasfa-solid fa-user"></i>
-            <span>Member Pelangan</span>
+            <span>User</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="cards.html">Member</a>
+                <a class="collapse-item" href="/daftar_admin">Admin</a>
+                <a class="collapse-item" href="/daftar_member">Member</a>
+                <a class="collapse-item" href="/daftar_pelanggan">Pelanggan</a>
             </div>
         </div>
     </li>
@@ -66,7 +70,21 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="/kategori_operasi">Kategori Operasi</a>
-                <a class="collapse-item" href="">Rilis Operasi</a>
+                <a class="collapse-item" href="/jadwal_operasi">Jadwal Operasi</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reservasiPages"
+            aria-expanded="true" aria-controls="laporanPages">
+            <i class="fas fa-fw fa-solid fa-briefcase"></i>
+            <span>Reservasi Layanan</span>
+        </a>
+        <div id="reservasiPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="">Pesan Ditempat</a>
+                <a class="collapse-item" href="">Khusus Member</a>
             </div>
         </div>
     </li>
@@ -79,8 +97,8 @@
         </a>
         <div id="laporanPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">Pembayaran</a>
-                <a class="collapse-item" href="">Reservasi</a>
+                <a class="collapse-item" href="">Pesan Ditempat</a>
+                <a class="collapse-item" href="">Khusus Member</a>
             </div>
         </div>
     </li>

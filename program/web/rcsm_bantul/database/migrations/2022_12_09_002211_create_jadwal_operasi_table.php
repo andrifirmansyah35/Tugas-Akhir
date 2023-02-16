@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperasisTable extends Migration
+class CreateJadwalOperasiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateOperasisTable extends Migration
      */
     public function up()
     {
-        Schema::create('operasis', function (Blueprint $table) {
+        Schema::create('jadwal_operasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tanggal_operasi_id');
-            $table->string('nama');
+            $table->date('tanggal')->unique();
+            $table->string('kategori_operasi');
+            $table->string('hari',2);
+            $table->string('bulan',2);
+            $table->string('tahun',4);
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateOperasisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operasis');
+        Schema::dropIfExists('jadwal_operasi');
     }
 }

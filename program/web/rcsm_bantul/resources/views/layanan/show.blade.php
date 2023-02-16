@@ -60,8 +60,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    Apakah Anda Ingin <span
-                        class="font-weight-bold">{{ $layanan->status ? 'non-aktifkan' : 'aktifkan' }}</span> layanan
+                    Apakah Anda Ingin
+                    <span class="font-weight-bold">{{ $layanan->status ? 'non-aktifkan' : 'aktifkan' }}</span> layanan
                     <span class="font-weight-bold">{{ $layanan->nama }} ?</span>
                 </div>
                 <div class="modal-footer">

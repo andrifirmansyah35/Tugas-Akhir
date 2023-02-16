@@ -54,12 +54,15 @@
                                 <td>{{ $lyn->kategori_layanan->nama }}</td>
                                 <td>{{ $lyn->harga }}</td>
                                 <td>
-                                    <button type="button" class="btn {{ $lyn->status ? 'btn-primary' : 'btn-secondary' }}"
-                                        data-toggle="modal" data-target="#modal-status-{{ $lyn->slug }}">
+                                    <p class="font-weight-bold text-{{ $lyn->status ? 'success' : 'danger' }}">
                                         {{ $lyn->status ? 'aktif' : 'non-aktif' }}
-                                    </button>
+                                    </p>
                                 </td>
                                 <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                        data-target="#modal-status-{{ $lyn->slug }}">
+                                        Ubah Status
+                                    </button>
                                     <a href="/layanan/{{ $lyn->slug }}"
                                         class="btn btn-info text-decoration-none">detail</a>
                                     <a href="/layanan/{{ $lyn->slug }}/edit" class="btn btn-warning">update</a>
@@ -81,7 +84,6 @@
 
 
     <!-- Modal aktif status layanan -->
-
     @foreach ($layanan as $lyn)
         <div class="modal fade" id="modal-status-{{ $lyn->slug }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">

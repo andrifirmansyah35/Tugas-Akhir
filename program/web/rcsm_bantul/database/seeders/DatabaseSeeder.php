@@ -11,6 +11,8 @@ use App\Models\kategori_operasi;
 use App\Models\tanggal_operasi;
 use App\Models\skema_operasi;
 
+use Illuminate\Support\Facades\Hash;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -21,7 +23,58 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // 1. seed user-------------------------------------------------------------------------------------------
-        User::factory(10)->create();
+        // User::factory(10)->create();
+        User::create([
+            'name' => 'Andri Firmansyah Putra',
+            'email'=>'ahsyandri@gmail.com',
+            'alamat' => 'Jl. Bantul No.13, Monggang, Pendowoharjo, Kec. Sewon, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55186',
+            'telephone' => '089510364498',
+            'password' => Hash::make('admin_rcsm'),
+            'level'=> 'pemilik' 
+        ]);
+
+        User::create([
+            'name' => 'Eni Rohmani',
+                'email'=>'eni_rohmani@gmail.com',
+            'alamat' => 'Jl. Bantul No.13, Monggang, Pendowoharjo, Kec. Sewon, Kabupaten Bantul, Daerah Istimewa Yogyakarta 55186',
+            'telephone' => '027749137117',
+            'password' => Hash::make('passss_eni'),
+            'level'=> 'admin' 
+        ]);
+
+        User::create([
+            'name' => 'Vinda Risma',
+            'email'=>'vinri@gmail.com',
+            'alamat' => 'Mrisi RT 11, Tirtonirmolo Kasihan, Bantul Yohyakarta',
+            'telephone' => '089632311271',
+            'password' => Hash::make('passss_vinda'),
+            'level'=> 'pelanggan' 
+        ]);
+
+        User::create([
+            'name' => 'Ihsan Ananda Pratama',
+            'email'=>'ihsan.anan@gmail.com',
+            'alamat' => 'Sleman Yogyakarta',
+            'telephone' => '089632314444',
+            'level'=> 'pelanggan' 
+        ]);
+
+        User::create([
+            'name' => 'Tri Agung Jiwandono',
+            'email'=>'tj@gmail.com',
+            'alamat' => 'Purwokerto Jawa Tengah',
+            'telephone' => '089632314333',
+            'level'=> 'pelanggan' 
+        ]);
+
+        User::create([
+            'name' => 'Happy Nessa Maharani',
+            'email'=>'happ_hahahay@gmail.com',
+            'alamat' => 'Purwokerto Jawa Tengah',
+            'telephone' => '089632314321',
+            // 'password' => Hash::make('passss_ihsan'),
+            'level'=> 'pelanggan' 
+        ]);
 
 
         // 2. seed kategori layanan------------------------------------------------------------------------------
@@ -98,23 +151,22 @@ class DatabaseSeeder extends Seeder
         kategori_operasi::create(['nama' => 'khusus hari nasional', 'slug' => 'khusus-hari-nasiona']);
         kategori_operasi::create(['nama' => 'hari biasa', 'slug' => 'hari-biasa']);
         kategori_operasi::create(['nama' => 'khusus weekend','slug' => 'khusus-weekend']);
-        kategori_operasi::create(['nama' => 'peringatan kemerdekaan','slug'=>'peringatan-hari-kemerdekaan']);
 
 
         // 5. seed tangal operasi---------------------------------------------------------------------------
-        $jumlah_tanggal = 10;
-        for ($i = 0; $i < $jumlah_tanggal; $i++) {
-            $tambah_hari = "+" . strval($i) . "day";
-            $tanggal = strtotime($tambah_hari);
+        // $jumlah_tanggal = 10;
+        // for ($i = 0; $i < $jumlah_tanggal; $i++) {
+        //     $tambah_hari = "+" . strval($i) . "day";
+        //     $tanggal = strtotime($tambah_hari);
 
-            tanggal_operasi::create([
-                    'kategori_operasi_id' => mt_rand(1,4),
-                    'tanggal_operasi' => date('Y-m-d', $tanggal),
-                    'tanggal' => intval(date('d', $tanggal)),
-                    'bulan' => intval(date('m', $tanggal)),
-                    'tahun' => intval(date('Y', $tanggal))
-                ]);
-            }
+        //     tanggal_operasi::create([
+        //             'kategori_operasi_id' => mt_rand(1,4),
+        //             'tanggal_operasi' => date('Y-m-d', $tanggal),
+        //             'tanggal' => intval(date('d', $tanggal)),
+        //             'bulan' => intval(date('m', $tanggal)),
+        //             'tahun' => intval(date('Y', $tanggal))
+        //         ]);
+        //     }
 
             //6. Skema operasi------------------------------------------------------------------------------
             $data_skema_operasi = [
@@ -136,7 +188,6 @@ class DatabaseSeeder extends Seeder
                 [2,'10:00','10:30'],
                 [2,'10:30','11:00'],
                 [2,'11:00','11:30'],
-                [2,'11:30','12:00'],
                 [2,'13:00','13:30'],
                 [2,'13:30','14:00'],
                 [2,'14:00','14:30'],
@@ -157,19 +208,6 @@ class DatabaseSeeder extends Seeder
                 [3,'15:00','15:30'],
                 [3,'15:30','16:00'],
                 [3,'16:00','16:30'],//haha3
-                [4,'09:00','09:30'],
-                [4,'09:30','10:00'],
-                [4,'10:00','10:30'],
-                [4,'10:30','11:00'],
-                [4,'11:00','11:30'],
-                [4,'11:301','12:00'],
-                [4,'13:00','13:30'],
-                [4,'13:30','14:00'],
-                [4,'14:00','14:30'],
-                [4,'14:30','15:00'],
-                [4,'15:00','15:30'],
-                [4,'15:30','16:00'],
-                [4,'16:00','16:30'],
             ];
         
             foreach ($data_skema_operasi as $dso) {

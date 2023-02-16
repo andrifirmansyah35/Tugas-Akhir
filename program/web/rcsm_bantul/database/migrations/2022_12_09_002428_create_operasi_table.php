@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkemaOperasiTable extends Migration
+class CreateOperasiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSkemaOperasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('skema_operasi', function (Blueprint $table) {
+        Schema::create('operasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kategori_operasi_id');
-            // $table->string('operasi_waktu');
+            $table->foreignId('jadwal_operasi_id');
             $table->string('waktu_mulai');
             $table->string('waktu_selesai');
+            $table->string('status');  //karena bisa dipesan bisa juga tidak dipesan
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateSkemaOperasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skema_operasi');
+        Schema::dropIfExists('operasis');
     }
 }
