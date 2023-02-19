@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    // 0. user --------------------------------------------------------------------------------------
+    public function userProfile(){
+        return [
+            'message' => 'Program Masih dalam Pembangunan',
+            'action' => 'program akan menampilkan user profile saat user logibn'
+        ];
+    }
 
     // 1. pelanggan ----------------------------------------------------------------------------------
     public function inputPelanggan(){

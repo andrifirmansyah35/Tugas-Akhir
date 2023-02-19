@@ -7,7 +7,7 @@
     </div>
 
     <div class="col-md-8">
-        <form method="post" action="/kategori_layanan/{{ $kategori_layanan->slug }}">
+        <form method="post" action="/kategori_layanan/{{ $kategori_layanan->slug }}" enctype="multipart/form-data">
             @method('put')
             @csrf
             <div class="mb-3">
@@ -15,6 +15,21 @@
                 <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama"
                     value="{{ old('nama', $kategori_layanan->nama) }}">
                 @error('nama')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label @error('gambar') is-invalid @enderror">Post Image</label>
+
+                <input type="hidden" name="gambarLama" value="{{ $kategori_layanan->gambar }}">
+
+                <img src="{{ asset('storage/' . $kategori_layanan->gambar) }}"
+                    class="img-preview img-fluid mb-3 col-sm-5 d-blok">
+                <input class="form-control" type="file" id="image" name="gambar" onchange="previewImage()">
+                @error('gambar')
                     <div class="text-danger">
                         {{ $message }}
                     </div>
@@ -49,5 +64,25 @@
             // .then(data => console.log('slug yang didapa : ' + data.slug))
             // console.log('ini adalah nama kaegori: ' + nama.value)
         })
+
+
+
+        // change Image
+        const image = document.querySelector('#image')
+        const imgPreview = document.querySelector('.img-preview')
+
+        function previewImage() {
+            console.log('meong');
+
+            imgPreview.style.display = 'block'
+
+            const oFReader = new FileReader();
+
+            oFReader.readAsDataURL(image.files[0])
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result
+            }
+        }
     </script>
 @endsection

@@ -57,13 +57,14 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $kl->nama }}</td>
                                 <td>
+                                    <a href="/kategori_layanan/{{ $kl->slug }}" class="btn btn-info">detail</a>
                                     <a href="/kategori_layanan/{{ $kl->slug }}/edit" class="btn btn-warning">edit</a>
-                                    <form action="/kategori_layanan/{{ $kl->slug }}" method="POST" class="d-inline">
+                                    {{-- <form action="/kategori_layanan/{{ $kl->slug }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger border-0"
                                             onclick="return confirm('Are You sure?')">hapus</button>
-                                    </form>
+                                    </form> --}}
                                 </td>
                             </tr>
                         @endforeach

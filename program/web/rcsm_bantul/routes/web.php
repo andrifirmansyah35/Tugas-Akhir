@@ -13,9 +13,10 @@ use App\Http\Controllers\UserController;
 
 
 
+
 Route::get('/login', [LoginController::class,'index']);
 
-Route::get('/', [DashboardController::class,'index']);
+Route::get('/dashboard', [DashboardController::class,'index']);
 // Route::get('/kategori_layanan', [KategoriLayananController::class,'index']);
 
 
@@ -35,8 +36,11 @@ Route::delete('/skema_operasi_hapus',[SkemaOperasiController::class,'hapusSkemaO
 Route::resource('/jadwal_operasi', JadwalOperasiController::class);
 Route::get('jadwal_operasi_status/{jadwal_operasi:tanggal}',[JadwalOperasiController::class,'updateStatus']);
 Route::delete('jadwal_operasi_hapus/{jadwal_operasi:tanggal}',[JadwalOperasiController::class,'hapusJadwal']);
-
+    
 Route::get('/jadwal_operasi_detail/{jadwal_operasi:tanggal}',[OperasiController::class,'detail']); 
+
+// userController -------------------------------------------------------------------------------------------------
+Route::get('/profile',[UserController::class,'userProfile']);
 
 Route::get('/daftar_pelanggan',[UserController::class,'pelangan']);
 Route::get('/pelanggan/{user:email}',[UserController::class,'pelanganInfo']);
@@ -52,3 +56,8 @@ Route::get('/admin/{user:email}',[UserController::class,'adminInfo']);
 Route::get('/admin_tambah',[UserController::class,'adminTambah']); 
 Route::post('/admin_tambah',[UserController::class,'adminSimpan']);
 Route::get('/admin_status/{user:email}',[UserController::class,'adminStatus']);
+
+// login -------------------------------------------------------------------------------------------
+Route::get('/login',[LoginController::class,'index']);
+Route::post('/login',[LoginController::class,'autentikasi']);
+Route::get('/logout',[LoginController::class,'logout']);

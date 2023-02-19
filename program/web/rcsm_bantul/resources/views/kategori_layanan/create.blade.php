@@ -7,7 +7,7 @@
     </div>
 
     <div class="col-md-8">
-        <form method="post" action="/kategori_layanan">
+        <form method="post" action="/kategori_layanan" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="nama" class="form-label">nama</label>
@@ -31,6 +31,17 @@
                 @enderror
             </div>
 
+            <div class="mb-3">
+                <label for="image" class="form-label @error('gambar') is-invalid @enderror">Post Image</label>
+                <img src="" class="img-preview img-fluid mb-3 col-sm-5" alt="">
+                <input class="form-control" type="file" id="image" name="gambar" onchange="previewImage()">
+                @error('gambar')
+                    <div class="text-danger">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
             <button type="submit" class="btn btn-primary">Tambah Kategori layanan</button>
         </form>
     </div>
@@ -45,5 +56,22 @@
                 //kita ambil isinya |responsenya kita jalankan dimethod json| json masih (promise)
                 .then(data => slug.value = data.slug)
         })
+
+        const image = document.querySelector('#image')
+        const imgPreview = document.querySelector('.img-preview')
+
+        function previewImage() {
+            console.log('meong');
+
+            imgPreview.style.display = 'block'
+
+            const oFReader = new FileReader();
+
+            oFReader.readAsDataURL(image.files[0])
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result
+            }
+        }
     </script>
 @endsection

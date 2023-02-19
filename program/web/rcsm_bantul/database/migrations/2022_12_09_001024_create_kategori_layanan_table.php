@@ -16,6 +16,7 @@ class CreateKategoriLayananTable extends Migration
         Schema::create('kategori_layanan', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('gambar')->nullable();
             $table->string('slug')->unique();
             $table->timestamps();
         });

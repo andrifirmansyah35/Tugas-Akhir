@@ -7,6 +7,8 @@ use App\Models\layanan;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
+use Illuminate\Support\Facades\Storage;
+
 class KategoriLayananController extends Controller
 {
 
@@ -29,13 +31,17 @@ class KategoriLayananController extends Controller
         ]);
     }
 
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'nama' => 'required|max:30',
             'slug' => 'required|unique:kategori_layanan',
+            'gambar' => 'image|file|mimes:jpg,png,jpeg|max:5000'
         ]);
+
+        if($request->file('gambar')){   
+            $validatedData['gambar'] = $request->file('gambar')->store('kategori_layanan');
+        }
 
         kategori_layanan::create($validatedData);
 
@@ -44,7 +50,7 @@ class KategoriLayananController extends Controller
 
     public function show(kategori_layanan $kategori_layanan)
     {
-        // return 'mgapain';
+        return view('kategori_layanan.show',['title'=> 'kategori Layanan info','kategori_layanan' => $kategori_layanan]);
     }
 
     
@@ -60,6 +66,7 @@ class KategoriLayananController extends Controller
     {
         $rules = [
             'nama' => 'required|max:30',
+            'gambar' => 'image|file|mimes:jpg,png,jpeg|max:5000',
             'slug' => 'required',
         ];
 
@@ -68,6 +75,13 @@ class KategoriLayananController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+ 
+        if($request->file('gambar')){
+            if($request->gambarLama){
+                Storage::delete($request->gambarLama);
+            }
+            $validatedData['gambar'] = $request->file('gambar')->store('kategori_layanan');
+        }
 
         kategori_layanan::where('slug',$kategori_layanan->slug)
         ->update($validatedData);
@@ -78,9 +92,6 @@ class KategoriLayananController extends Controller
 
     public function destroy(kategori_layanan $kategori_layanan)
     {
-        // return layanan::all();  //  YES
-        // return layanan::where('kategori_layanan_id',$kategori_layanan->id)->get(); 
-
         if(layanan::where('kategori_layanan_id',$kategori_layanan->id)->get()->isEmpty()){
             kategori_layanan::destroy($kategori_layanan->id);
             return redirect('/kategori_layanan')->with('success','berhasil menghapus');
