@@ -4,18 +4,62 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
     // 0. user --------------------------------------------------------------------------------------
-    public function userProfile(){
-        return [
-            'message' => 'Program Masih dalam Pembangunan',
-            'action' => 'program akan menampilkan user profile saat user logibn'
-        ];
+    public function userInfo(){
+        return view('user.user_info',[
+           'title' => 'Admin Profile',
+           'user' => Auth::user()]);
+   }
+
+   public function userEdit(){
+    return view('user.user_edit',[
+       'title' => 'Edit Profil',
+       'user' => Auth::user()
+    ]);
+}
+
+public function userUpdate(Request $request){
+    $rules = [
+        'name' => 'required|max:30|min:5',
+        'photo_profile' => 'image|file|mimes:jpg,png,jpeg|max:5000',
+        'telephone' => 'required|numeric|min:11|unique:user',
+        'alamat' => 'required|min:10|max:200',
+    ];
+
+    if($request['password']){
+        $rules['password'] = 'min:8|max:50';
     }
+
+
+    if($request->telephone == Auth::user()->telephone){
+        $rules['telephone'] = 'required|numeric|min:11';
+    }
+
+    $validatedData = $request->validate($rules);
+
+    if($request['password']){
+        $validatedData['password'] =  Hash::make($validatedData['password']);
+    }
+
+
+    if($request->file('photo_profile')){
+        if($request->photoProfilLama){
+            Storage::delete($request->photoProfilLama);
+        }
+        $validatedData['photo_profile'] = $request->file('photo_profile')->store('user');
+    }
+
+    user::where('email',Auth::user()->email)
+    ->update($validatedData);
+    
+    return redirect('/profile')->with('success','Profile Berhasil di update!');
+}
 
     // 1. pelanggan ----------------------------------------------------------------------------------
     public function inputPelanggan(){
@@ -54,7 +98,7 @@ class UserController extends Controller
 
     public function pelanganInfo(User $user){ 
         return view('user.pelanggan_info',[
-            'title' => 'Informasi Pelanggan',
+            'title' => 'Informasi Pelanggan', 
             'pelanggan' => $user         
         ]);
     }
@@ -131,7 +175,6 @@ class UserController extends Controller
             'admin' => $user         
         ]);
     }
-    
 
     public function adminStatus(User $user){
 

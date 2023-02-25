@@ -20,12 +20,14 @@ class LoginController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
+
+        $data_user = User::where('email',$request->email)->first();
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
-        }
-        // // return back()->withError('loginError','Login Error');
+        }      
+
         return back()->with('loginError','Login Error');
     }
 

@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->string('password')->nullable();
             $table->string('alamat'); 
             $table->string('telephone'); 
-            $table->string('photo_profil')->nullable();
+            $table->string('photo_profile')->nullable();
             $table->enum('level',['pemilik','admin','admin_off','pelanggan','member']); 
             $table->rememberToken();
             $table->timestamps();

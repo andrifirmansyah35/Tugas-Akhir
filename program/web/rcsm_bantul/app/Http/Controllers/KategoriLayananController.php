@@ -85,7 +85,6 @@ class KategoriLayananController extends Controller
 
         kategori_layanan::where('slug',$kategori_layanan->slug)
         ->update($validatedData);
-        // return $validatedData;
         return redirect('/kategori_layanan')->with('success','Kategori layanan berhsil diupdate!');
     }
 

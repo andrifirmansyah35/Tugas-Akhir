@@ -3,10 +3,10 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar-brand-icon ">
+            <img src="img/logo.png" style="max-width:60px" alt="">
         </div>
-        <div class="sidebar-brand-text mx-3">Admin RCSM Bantul</div>
+        <div class="sidebar-brand-text mx-3">Admin RCSM</div>
     </a>
 
     <!-- Divider -->
@@ -38,7 +38,10 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                {{-- @if (Auth::user()->level == 'pemilik') --}}
+                @middleware
                 <a class="collapse-item" href="/daftar_admin">Admin</a>
+                {{-- @endif --}}
                 <a class="collapse-item" href="/daftar_member">Member</a>
                 <a class="collapse-item" href="/daftar_pelanggan">Pelanggan</a>
             </div>

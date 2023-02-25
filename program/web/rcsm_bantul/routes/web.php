@@ -12,14 +12,11 @@ use App\Http\Controllers\OperasiController;
 use App\Http\Controllers\UserController;
 
 
-
-
-Route::get('/login', [LoginController::class,'index']);
-
 Route::get('/dashboard', [DashboardController::class,'index']);
-// Route::get('/kategori_layanan', [KategoriLayananController::class,'index']);
 
+Route::middleware(['auth'])->group(function () {
 
+    
 Route::get('/kategori_layanan/checkSlug',[KategoriLayananController::class,'checkSlug']);
 Route::resource('/kategori_layanan', KategoriLayananController::class);
 
@@ -51,13 +48,22 @@ Route::post('/pelanggan_jadi_member',[UserController::class,'pelanganJadiMember'
 Route::get('/daftar_member',[UserController::class,'member']); 
 Route::get('/member/{user:email}',[UserController::class,'memberInfo']);
 
-Route::get('/daftar_admin',[UserController::class,'admin']); 
-Route::get('/admin/{user:email}',[UserController::class,'adminInfo']);
-Route::get('/admin_tambah',[UserController::class,'adminTambah']); 
-Route::post('/admin_tambah',[UserController::class,'adminSimpan']);
-Route::get('/admin_status/{user:email}',[UserController::class,'adminStatus']);
+Route::middleware(['pemilik'])->group(function () {
+    Route::get('/daftar_admin',[UserController::class,'admin']); 
+    Route::get('/admin/{user:email}',[UserController::class,'adminInfo']);
+    Route::get('/admin_tambah',[UserController::class,'adminTambah']); 
+    Route::post('/admin_tambah',[UserController::class,'adminSimpan']);
+    Route::get('/admin_status/{user:email}',[UserController::class,'adminStatus']);
+});
 
-// login -------------------------------------------------------------------------------------------
-Route::get('/login',[LoginController::class,'index']);
-Route::post('/login',[LoginController::class,'autentikasi']);
+Route::get('/profile',[UserController::class,'userInfo']);
+Route::get('/profile_edit',[UserController::class,'userEdit']);
+Route::put('/profile_update',[UserController::class,'userUpdate']);
+
 Route::get('/logout',[LoginController::class,'logout']);
+});
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/login',[LoginController::class,'index'])->name('login');
+    Route::post('/login',[LoginController::class,'autentikasi']);    
+});
